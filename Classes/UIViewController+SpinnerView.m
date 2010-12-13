@@ -22,7 +22,9 @@
 	CGPoint offset = CGPointZero;
 	@try {
 		UIScrollView *scrollView = (UIScrollView *) self.view;
-		offset = scrollView.contentOffset;
+        if ([scrollView respondsToSelector:@selector(contentOffset)]) {
+            offset = scrollView.contentOffset;
+        }
 	}
 	@catch (NSException * e) {
 		// do nothing if this fails

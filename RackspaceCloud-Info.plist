@@ -45,5 +45,7 @@
 	</array>
 	<key>CFBundleIconFile</key>
 	<string>rackspacecloud72.png</string>
+	<key>UIApplicationExitsOnSuspend</key>
+	<true/>
 </dict>
 </plist>
