@@ -23,6 +23,7 @@
 
 +(id)image;
 
++(UIImage *)iconForImageName:(NSString *)name;
 +(UIImage *)iconForImageId:(NSUInteger)imageId;
 +(UIImage *)logoForImageId:(NSUInteger)imageId;
 +(UIImage *)backgroundForImageId:(NSUInteger)imageId;

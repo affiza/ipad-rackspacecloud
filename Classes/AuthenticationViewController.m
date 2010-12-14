@@ -67,6 +67,10 @@
 	self.tableViewDelegate = [[RSSTableViewDelegateAndDataSource alloc] initWithTableView:self.tableView];
 	self.tableView.delegate = self.tableViewDelegate;
 	self.tableView.dataSource = self.tableViewDelegate;
+    
+    // kill me now
+    [self.view.superview retain];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {	

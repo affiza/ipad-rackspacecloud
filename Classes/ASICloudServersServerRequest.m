@@ -84,7 +84,7 @@
 #pragma mark POST - Create Server
 
 + (id)createServerRequest:(ASICloudServersServer *)server {
-	ASICloudServersServerRequest *request = [ASICloudServersServerRequest serverRequestWithMethod:@"POST" path:@"/servers"];
+	ASICloudServersServerRequest *request = [ASICloudServersServerRequest serverRequestWithMethod:@"POST" path:@"/servers.xml"];
 	NSData* data = [[server toXML] dataUsingEncoding:NSASCIIStringEncoding];
 	[request setPostBody:[NSMutableData dataWithData:data]];
 	return request;

@@ -7,22 +7,29 @@
 //
 
 #import "ASICloudServersServer.h"
+#import "ASICloudServersFile.h"
+#import "Base64.h"
 
 
 @implementation ASICloudServersServer
 
-@synthesize serverId, name, imageId, flavorId, hostId, publicIpAddresses, privateIpAddresses, metadata, status, progress, adminPass, backupSchedule;
+@synthesize serverId, name, imageId, flavorId, hostId, publicIpAddresses, privateIpAddresses, metadata, status, progress, adminPass, backupSchedule, files, chefRunList;
 
 + (id) server {
-	ASICloudServersServer *server = [[[self alloc] init] autorelease];
+	//ASICloudServersServer *server = [[[self alloc] init] autorelease];
+    ASICloudServersServer *server = [[self alloc] init];
 	server.publicIpAddresses = [[NSMutableArray alloc] init];
 	server.privateIpAddresses = [[NSMutableArray alloc] init];
 	server.metadata = [[NSMutableDictionary alloc] init];
+    server.files = [[NSMutableArray alloc] init];
 	return server;
 }
 
 - (NSString *)toXML {
 	NSString *xml = @"";
+    NSString *meta = @"";
+    NSString *personality = @"";
+    
 	if (self.metadata && [self.metadata count] > 0) {
 		NSString *metas = @"";
 		NSArray *keys = [self.metadata allKeys];
@@ -30,13 +37,27 @@
 			NSString *key = [keys objectAtIndex:i];
 			metas = [NSString stringWithFormat:@"%@<meta key = \"%@\">%@</meta>", metas, key, [self.metadata objectForKey:key]];
 		}
-		NSString *meta = [NSString stringWithFormat:@"<metadata>%@</metadata>", metas];
-		
-		xml = [NSString stringWithFormat:@"<server xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" name=\"%@\" imageId=\"%i\" flavorId=\"%i\">%@</server>", self.name, self.imageId, self.flavorId, meta];	
-	} else {
-		xml = [NSString stringWithFormat:@"<server xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" name=\"%@\" imageId=\"%i\" flavorId=\"%i\"></server>", self.name, self.imageId, self.flavorId];	
+		meta = [NSString stringWithFormat:@"<metadata>%@</metadata>", metas];		
 	}
-	return xml;
+    
+    // TODO: base64 encode file contents
+    if ([self.files count] > 0) {
+        NSString *filesXML = @"";
+        for (int i = 0; i < [files count]; i++) {
+            ASICloudServersFile *file = [files objectAtIndex:i];
+            
+            NSData *data = [file.content dataUsingEncoding: NSASCIIStringEncoding];
+            
+			filesXML = [NSString stringWithFormat:@"%@<file path = \"%@\">%@</file>", filesXML, file.path, [Base64 encode:data]];
+        }
+        personality = [NSString stringWithFormat:@"<personality>%@</personality>", filesXML];
+    }
+    
+    xml = [NSString stringWithFormat:@"<server xmlns=\"http://docs.rackspacecloud.com/servers/api/v1.0\" name=\"%@\" imageId=\"%i\" flavorId=\"%i\">%@%@</server>", self.name, self.imageId, self.flavorId, meta, personality];
+    
+    NSLog(@"server xml: %@", xml);
+    
+    return xml;
 }
 
 -(NSUInteger)humanizedProgress {
@@ -104,6 +125,8 @@
 	[status release];
 	[adminPass release];
 	[backupSchedule release];
+    [files release];
+    [chefRunList release];
 	[super dealloc];
 }
 

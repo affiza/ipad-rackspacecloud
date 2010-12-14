@@ -23,6 +23,8 @@
 	NSUInteger progress;
 	NSString *adminPass;
 	ASICloudServersBackupSchedule *backupSchedule;
+    NSMutableArray *files;
+    NSString *chefRunList;
 }
 
 +(id)server;
@@ -43,5 +45,7 @@
 @property (assign) NSUInteger progress;
 @property (retain) NSString *adminPass;
 @property (retain) ASICloudServersBackupSchedule *backupSchedule;
+@property (retain) NSMutableArray *files;
+@property (retain) NSString *chefRunList;
 
 @end

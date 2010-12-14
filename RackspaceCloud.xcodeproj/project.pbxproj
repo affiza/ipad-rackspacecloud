@@ -55,6 +55,19 @@
 		27492CD312B6B3C200C6DAAD /* Opscode_Logo187.png in Resources */ = {isa = PBXBuildFile; fileRef = 27492CD012B6B3C200C6DAAD /* Opscode_Logo187.png */; };
 		27492CD412B6B3C200C6DAAD /* Opscode_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 27492CD112B6B3C200C6DAAD /* Opscode_Logo.png */; };
 		27492CD512B6B3C200C6DAAD /* opscode.png in Resources */ = {isa = PBXBuildFile; fileRef = 27492CD212B6B3C200C6DAAD /* opscode.png */; };
+		27492DE212B6D3EA00C6DAAD /* client.rb.template in Resources */ = {isa = PBXBuildFile; fileRef = 27492DD912B6D3EA00C6DAAD /* client.rb.template */; };
+		27492DE312B6D3EA00C6DAAD /* install-chef in Resources */ = {isa = PBXBuildFile; fileRef = 27492DDA12B6D3EA00C6DAAD /* install-chef */; };
+		27492DE412B6D3EA00C6DAAD /* crontab in Resources */ = {isa = PBXBuildFile; fileRef = 27492DDB12B6D3EA00C6DAAD /* crontab */; };
+		27492DE512B6D3EA00C6DAAD /* ChefServerURLViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 27492DDC12B6D3EA00C6DAAD /* ChefServerURLViewController.h */; };
+		27492DE612B6D3EA00C6DAAD /* ChefServerURLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27492DDD12B6D3EA00C6DAAD /* ChefServerURLViewController.m */; };
+		27492DE712B6D3EA00C6DAAD /* ChefServerURLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27492DDE12B6D3EA00C6DAAD /* ChefServerURLViewController.xib */; };
+		27492DE812B6D3EA00C6DAAD /* ValidationKeyViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 27492DDF12B6D3EA00C6DAAD /* ValidationKeyViewController.h */; };
+		27492DE912B6D3EA00C6DAAD /* ValidationKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27492DE012B6D3EA00C6DAAD /* ValidationKeyViewController.m */; };
+		27492DEA12B6D3EA00C6DAAD /* ValidationKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27492DE112B6D3EA00C6DAAD /* ValidationKeyViewController.xib */; };
+		27492E4A12B6DB9B00C6DAAD /* ASICloudServersFile.h in Sources */ = {isa = PBXBuildFile; fileRef = 27492E4812B6DB9B00C6DAAD /* ASICloudServersFile.h */; };
+		27492E4B12B6DB9B00C6DAAD /* ASICloudServersFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 27492E4912B6DB9B00C6DAAD /* ASICloudServersFile.m */; };
+		27492E5012B6DBAE00C6DAAD /* Base64.h in Sources */ = {isa = PBXBuildFile; fileRef = 27492E4E12B6DBAE00C6DAAD /* Base64.h */; };
+		27492E5112B6DBAE00C6DAAD /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 27492E4F12B6DBAE00C6DAAD /* Base64.m */; };
 		2755842C115C6A91005E4DCB /* Default-LandscapeLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 27558428115C6A91005E4DCB /* Default-LandscapeLeft.png */; };
 		2755842D115C6A91005E4DCB /* Default-LandscapeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 27558429115C6A91005E4DCB /* Default-LandscapeRight.png */; };
 		2755842E115C6A91005E4DCB /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 2755842A115C6A91005E4DCB /* Default-Portrait.png */; };
@@ -263,6 +276,19 @@
 		27492CD012B6B3C200C6DAAD /* Opscode_Logo187.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Opscode_Logo187.png; sourceTree = "<group>"; };
 		27492CD112B6B3C200C6DAAD /* Opscode_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Opscode_Logo.png; sourceTree = "<group>"; };
 		27492CD212B6B3C200C6DAAD /* opscode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opscode.png; sourceTree = "<group>"; };
+		27492DD912B6D3EA00C6DAAD /* client.rb.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = client.rb.template; sourceTree = "<group>"; };
+		27492DDA12B6D3EA00C6DAAD /* install-chef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "install-chef"; sourceTree = "<group>"; };
+		27492DDB12B6D3EA00C6DAAD /* crontab */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = crontab; sourceTree = "<group>"; };
+		27492DDC12B6D3EA00C6DAAD /* ChefServerURLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ChefServerURLViewController.h; sourceTree = "<group>"; };
+		27492DDD12B6D3EA00C6DAAD /* ChefServerURLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChefServerURLViewController.m; sourceTree = "<group>"; };
+		27492DDE12B6D3EA00C6DAAD /* ChefServerURLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChefServerURLViewController.xib; sourceTree = "<group>"; };
+		27492DDF12B6D3EA00C6DAAD /* ValidationKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ValidationKeyViewController.h; sourceTree = "<group>"; };
+		27492DE012B6D3EA00C6DAAD /* ValidationKeyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationKeyViewController.m; sourceTree = "<group>"; };
+		27492DE112B6D3EA00C6DAAD /* ValidationKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidationKeyViewController.xib; sourceTree = "<group>"; };
+		27492E4812B6DB9B00C6DAAD /* ASICloudServersFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ASICloudServersFile.h; sourceTree = "<group>"; };
+		27492E4912B6DB9B00C6DAAD /* ASICloudServersFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASICloudServersFile.m; sourceTree = "<group>"; };
+		27492E4E12B6DBAE00C6DAAD /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Base64.h; sourceTree = "<group>"; };
+		27492E4F12B6DBAE00C6DAAD /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		27558428115C6A91005E4DCB /* Default-LandscapeLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-LandscapeLeft.png"; sourceTree = "<group>"; };
 		27558429115C6A91005E4DCB /* Default-LandscapeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-LandscapeRight.png"; sourceTree = "<group>"; };
 		2755842A115C6A91005E4DCB /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
@@ -603,9 +629,35 @@
 			name = "Third Party Logos";
 			sourceTree = "<group>";
 		};
+		27492DD712B6D3EA00C6DAAD /* Chef Integration */ = {
+			isa = PBXGroup;
+			children = (
+				27492DDC12B6D3EA00C6DAAD /* ChefServerURLViewController.h */,
+				27492DDD12B6D3EA00C6DAAD /* ChefServerURLViewController.m */,
+				27492DDE12B6D3EA00C6DAAD /* ChefServerURLViewController.xib */,
+				27492DDF12B6D3EA00C6DAAD /* ValidationKeyViewController.h */,
+				27492DE012B6D3EA00C6DAAD /* ValidationKeyViewController.m */,
+				27492DE112B6D3EA00C6DAAD /* ValidationKeyViewController.xib */,
+				27492DD812B6D3EA00C6DAAD /* Templates */,
+			);
+			name = "Chef Integration";
+			sourceTree = "<group>";
+		};
+		27492DD812B6D3EA00C6DAAD /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				27492DD912B6D3EA00C6DAAD /* client.rb.template */,
+				27492DDA12B6D3EA00C6DAAD /* install-chef */,
+				27492DDB12B6D3EA00C6DAAD /* crontab */,
+			);
+			name = Templates;
+			sourceTree = "<group>";
+		};
 		2757F4831121056B00C55ED8 /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				27492E4E12B6DBAE00C6DAAD /* Base64.h */,
+				27492E4F12B6DBAE00C6DAAD /* Base64.m */,
 			);
 			name = Servers;
 			sourceTree = "<group>";
@@ -745,6 +797,8 @@
 		27A90A76111FE25500407B55 /* Cloud Servers */ = {
 			isa = PBXGroup;
 			children = (
+				27492E4812B6DB9B00C6DAAD /* ASICloudServersFile.h */,
+				27492E4912B6DB9B00C6DAAD /* ASICloudServersFile.m */,
 				2757F54311210D1100C55ED8 /* Flavors */,
 				2757F4841121057000C55ED8 /* Images */,
 				2757F4831121056B00C55ED8 /* Servers */,
@@ -1078,6 +1132,7 @@
 		27FC8FBD116E66B700250D42 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				27492DD712B6D3EA00C6DAAD /* Chef Integration */,
 				27FC8FC2116E699700250D42 /* AccountViewController.h */,
 				27FC8FC3116E699700250D42 /* AccountViewController.m */,
 				27FC8FC4116E699700250D42 /* AccountViewController.xib */,
@@ -1292,6 +1347,11 @@
 				27492CD312B6B3C200C6DAAD /* Opscode_Logo187.png in Resources */,
 				27492CD412B6B3C200C6DAAD /* Opscode_Logo.png in Resources */,
 				27492CD512B6B3C200C6DAAD /* opscode.png in Resources */,
+				27492DE212B6D3EA00C6DAAD /* client.rb.template in Resources */,
+				27492DE312B6D3EA00C6DAAD /* install-chef in Resources */,
+				27492DE412B6D3EA00C6DAAD /* crontab in Resources */,
+				27492DE712B6D3EA00C6DAAD /* ChefServerURLViewController.xib in Resources */,
+				27492DEA12B6D3EA00C6DAAD /* ValidationKeyViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1384,6 +1444,14 @@
 				27FC98901173A55200250D42 /* PasswordLockViewController.m in Sources */,
 				27FC989B1173A82E00250D42 /* SetPasswordLockViewController.m in Sources */,
 				2785B144118209B700592C00 /* PingIPAddressViewController.m in Sources */,
+				27492DE512B6D3EA00C6DAAD /* ChefServerURLViewController.h in Sources */,
+				27492DE612B6D3EA00C6DAAD /* ChefServerURLViewController.m in Sources */,
+				27492DE812B6D3EA00C6DAAD /* ValidationKeyViewController.h in Sources */,
+				27492DE912B6D3EA00C6DAAD /* ValidationKeyViewController.m in Sources */,
+				27492E4A12B6DB9B00C6DAAD /* ASICloudServersFile.h in Sources */,
+				27492E4B12B6DB9B00C6DAAD /* ASICloudServersFile.m in Sources */,
+				27492E5012B6DBAE00C6DAAD /* Base64.h in Sources */,
+				27492E5112B6DBAE00C6DAAD /* Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1434,7 +1502,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Mayo (YJR8C239H4)";
 				GCC_C_LANGUAGE_STANDARD = c99;

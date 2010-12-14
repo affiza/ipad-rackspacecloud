@@ -12,7 +12,7 @@
 #if !TARGET_OS_IPHONE && MAC_OS_X_VERSION_10_5 < MAC_OS_X_VERSION_MAX_ALLOWED
 @interface ASICloudServersServerXMLParserDelegate : NSObject <NSXMLParserDelegate> {
 #else
-@interface ASICloudServersServerXMLParserDelegate : NSObject {
+@interface ASICloudServersServerXMLParserDelegate : NSObject <NSXMLParserDelegate> {
 #endif
 		
 	NSMutableArray *serverObjects;

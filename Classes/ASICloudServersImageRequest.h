@@ -17,6 +17,7 @@
 @property (retain) ASICloudServersImageXMLParserDelegate *xmlParserDelegate;
 
 + (NSArray *)images;
++ (NSDictionary *)imageGroups;
 + (void)setImages:(NSArray *)newImages;
 + (ASICloudServersImage *)imageForId:(NSUInteger)imageId;
 

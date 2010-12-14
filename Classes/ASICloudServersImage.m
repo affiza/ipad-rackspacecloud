@@ -49,6 +49,7 @@ static UIImage *cloudServersBackground = nil;
 @synthesize status, updated, name, imageId;
 
 +(void)initialize {
+    
 	centosIcon = [[UIImage imageNamed:@"centos-icon.png"] retain];
 	centosLogo = [[UIImage imageNamed:@"centos-logo.png"] retain];
 	centosBackground = [[UIImage imageNamed:@"centos-large.png"] retain];
@@ -56,33 +57,55 @@ static UIImage *cloudServersBackground = nil;
 	debianIcon = [[UIImage imageNamed:@"debian-icon.png"] retain];
 	debianLogo = [[UIImage imageNamed:@"debian-logo.png"] retain];
 	debianBackground = [[UIImage imageNamed:@"debian-large.png"] retain];
-
+    
 	fedoraIcon = [[UIImage imageNamed:@"fedora-icon.png"] retain];
 	fedoraLogo = [[UIImage imageNamed:@"fedora-logo.png"] retain];
 	fedoraBackground = [[UIImage imageNamed:@"fedora-large.png"] retain];
-
+    
 	ubuntuIcon = [[UIImage imageNamed:@"ubuntu-icon.png"] retain];
 	ubuntuLogo = [[UIImage imageNamed:@"ubuntu-logo.png"] retain];
 	ubuntuBackground = [[UIImage imageNamed:@"ubuntu-large.png"] retain];
-
+    
 	gentooIcon = [[UIImage imageNamed:@"gentoo-icon.png"] retain];
 	gentooLogo = [[UIImage imageNamed:@"gentoo-logo.png"] retain];
 	gentooBackground = [[UIImage imageNamed:@"gentoo-large.png"] retain];
-
+    
 	windowsIcon = [[UIImage imageNamed:@"windows-icon.png"] retain];
 	windowsLogo = [[UIImage imageNamed:@"windows-logo.png"] retain];
 	windowsBackground = [[UIImage imageNamed:@"windows-large.png"] retain];	
-
+    
 	archIcon = [[UIImage imageNamed:@"arch-icon.png"] retain];
 	archLogo = [[UIImage imageNamed:@"arch-logo.png"] retain];
 	archBackground = [[UIImage imageNamed:@"arch-large.png"] retain];	
-
+    
 	redhatIcon = [[UIImage imageNamed:@"redhat-icon.png"] retain];
 	redhatLogo = [[UIImage imageNamed:@"redhat-logo.png"] retain];
 	redhatBackground = [[UIImage imageNamed:@"redhat-large.png"] retain];	
-
+    
 	cloudServersIcon = [[UIImage imageNamed:@"cloudservers-icon.png"] retain];
-	cloudServersBackground = [[UIImage imageNamed:@"cloudserver2.png"] retain];	
+	cloudServersBackground = [[UIImage imageNamed:@"cloudserver2.png"] retain];
+}
+
++(UIImage *)iconForImageName:(NSString *)name {
+	if ([name hasPrefix:@"CentOS"]) {
+		return centosIcon;
+	} else if ([name hasPrefix:@"Gentoo"]) {
+		return gentooIcon;
+	} else if ([name hasPrefix:@"Debian"]) {
+		return debianIcon;
+	} else if ([name hasPrefix:@"Fedora"]) {
+		return fedoraIcon;
+	} else if ([name hasPrefix:@"Ubuntu"]) {
+		return ubuntuIcon;
+	} else if ([name hasPrefix:@"Arch"]) {
+		return archIcon;
+	} else if ([name hasPrefix:@"Red Hat"]) {
+		return redhatIcon;
+	} else if ([name hasPrefix:@"Windows"]) {
+		return windowsIcon;
+	} else {
+        return cloudServersIcon;
+	}
 }
 
 +(UIImage *)iconForImageId:(NSUInteger)imageId {

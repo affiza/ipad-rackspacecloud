@@ -41,7 +41,12 @@ static UIImage *ukFlag = nil;
 
 		rssRequestCompletionCount = 0;
 		self.tableView = aTableView;
-		self.tableView.backgroundView = nil; // clear background
+		//self.tableView.backgroundView = nil; // clear background
+        
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"silvergradient.png"]];
+        self.tableView.backgroundView = image;
+        [image release];
+        
 		[self loadRSSFeeds];
     }
     return self;	
@@ -297,7 +302,12 @@ static UIImage *ukFlag = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-    tableView.backgroundView = nil; // clear background
+    //tableView.backgroundView = nil; // clear background
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"silvergradient.png"]];
+    aTableView.backgroundView = image;
+    [image release];
+
+    
     if (indexPath.section == 0) {
         return [self tableView:aTableView supportCellForRowAtIndexPath:indexPath];
     } else {

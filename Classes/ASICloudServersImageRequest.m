@@ -11,6 +11,7 @@
 #import "ASICloudServersImage.h"
 
 static NSArray *images = nil;
+static NSMutableDictionary *imageGroups = nil;
 static NSMutableDictionary *imageDict = nil;
 static NSRecursiveLock *accessDetailsLock = nil;
 
@@ -18,8 +19,56 @@ static NSRecursiveLock *accessDetailsLock = nil;
 
 @synthesize xmlParserDelegate;
 
++ (void)initialize {
+    imageGroups = [[NSMutableDictionary alloc] initWithCapacity:10];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Arch"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"CentOS"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Debian"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Fedora"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Gentoo"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Oracle"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Red Hat Enterprise Linux"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Ubuntu"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Windows Server"];
+    [imageGroups setValue:[[NSMutableArray alloc] init] forKey:@"Custom Images"];
+    
+}
+
++ (void)placeImageInGroup:(ASICloudServersImage *)image {
+    NSString *name = image.name;
+    NSMutableArray *group;
+    
+    if ([name hasPrefix:@"Arch"]) {
+        group = [imageGroups valueForKey:@"Arch"];
+    } else if ([name hasPrefix:@"CentOS"]) {
+        group = [imageGroups valueForKey:@"CentOS"];
+    } else if ([name hasPrefix:@"Debian"]) {
+        group = [imageGroups valueForKey:@"Debian"];
+    } else if ([name hasPrefix:@"Fedora"]) {
+        group = [imageGroups valueForKey:@"Fedora"];
+    } else if ([name hasPrefix:@"Oracle"]) {
+        group = [imageGroups valueForKey:@"Oracle"];
+    } else if ([name hasPrefix:@"Red Hat"]) {
+        group = [imageGroups valueForKey:@"Red Hat Enterprise Linux"];
+    } else if ([name hasPrefix:@"Ubuntu"]) {
+        group = [imageGroups valueForKey:@"Ubuntu"];
+    } else if ([name hasPrefix:@"Windows"]) {
+        group = [imageGroups valueForKey:@"Windows Server"];
+    } else if ([name hasPrefix:@"Gentoo"]) {
+        group = [imageGroups valueForKey:@"Gentoo"];
+    } else {
+        group = [imageGroups valueForKey:@"Custom Images"];
+    }
+    
+    [group addObject:image];
+}
+
 + (NSArray *)images {
 	return images;
+}
+
++ (NSDictionary *)imageGroups {
+    return imageGroups;
 }
 
 + (void)setImages:(NSArray *)newImages
@@ -29,10 +78,12 @@ static NSRecursiveLock *accessDetailsLock = nil;
 	[imageDict release];
 	images = [newImages retain];
 	imageDict = [[NSMutableDictionary alloc] initWithCapacity:[newImages count]];
+    
 	for (int i = 0; i < [images count]; i++) {
 		ASICloudServersImage *image = [images objectAtIndex:i];
 		if ([image.status isEqualToString:@"ACTIVE"]) {
 			[imageDict setObject:image forKey:[NSNumber numberWithInt:image.imageId]];
+            [self placeImageInGroup:image];
 		}
 	}
 	[accessDetailsLock unlock];

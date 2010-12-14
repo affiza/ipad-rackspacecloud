@@ -14,9 +14,12 @@
 	IBOutlet UITableView *tableView;
 	NSUserDefaults *defaults;
     UISwitch *passwordLockSwitch;
+    UISwitch *chefIntegrationSwitch;
+    BOOL chefIntegrationEnabled;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) UISwitch *passwordLockSwitch;
+@property (nonatomic, retain) UISwitch *chefIntegrationSwitch;
 
 @end

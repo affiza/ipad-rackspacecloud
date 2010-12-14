@@ -12,14 +12,42 @@
 #import "SetPasswordLockViewController.h"
 #import "RackspaceCloudAppDelegate.h"
 #import "PasswordLockViewController.h"
+#import "ChefServerURLViewController.h"
+#import "ValidationKeyViewController.h"
 
 #define kPrimaryAccountSection 0
 #define kSecondaryAccountsSection 1
 #define kPasswordLockSection 2
+#define kChefIntegrationSection 3
+#define kAPIEndpoints 4
 
 @implementation SettingsViewController
 
-@synthesize tableView, passwordLockSwitch;
+@synthesize tableView, passwordLockSwitch, chefIntegrationSwitch;
+
+#pragma mark -
+#pragma mark Settings
+
+- (void)loadSettings {
+    defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"chef_validation_key"]) {
+        [defaults setObject:@"" forKey:@"chef_validation_key"];
+    }
+    //    if (![defaults objectForKey:@"chef_endpoint"]) {
+    //        [defaults setObject:@"" forKey:@"chef_endpoint"];
+    //    }
+    [defaults synchronize];
+    
+    chefIntegrationEnabled = [defaults boolForKey:@"chef_integration_enabled"];
+    
+}
+
+- (void)updateSettings {
+    //    [defaults setObject:endPointString forKey:@"chef_endpoint"];
+    [defaults setBool:chefIntegrationEnabled forKey:@"chef_integration_enabled"];
+    //    [defaults setBool:!usingOpscodePlatform forKey:@"chef_using_chef_server"];
+    [defaults synchronize];
+}
 
 #pragma mark -
 #pragma mark Utilities
@@ -42,7 +70,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    defaults = [NSUserDefaults standardUserDefaults];
+    [self loadSettings];
 }
 
 /*
@@ -108,11 +136,25 @@
 }
 
 #pragma mark -
+#pragma mark Chef Integration Switch
+
+- (void)chefIntegrationSwitchChanged {
+    NSArray *indexPaths = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:kChefIntegrationSection], [NSIndexPath indexPathForRow:2 inSection:kChefIntegrationSection], nil];
+    chefIntegrationEnabled = chefIntegrationSwitch.on;
+    if (chefIntegrationEnabled) {
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    } else {
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    }
+    [self updateSettings];
+}
+
+#pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -122,6 +164,8 @@
     } else if (section == kSecondaryAccountsSection) {
         NSDictionary *accounts = [defaults objectForKey:@"secondary_accounts"];
         return [accounts count] + 1;
+    } else if (section == kChefIntegrationSection) {
+        return chefIntegrationEnabled ? 3 : 1;
     } else {
         return 1;
     }
@@ -132,8 +176,14 @@
         return @"Primary Account";
     } else if (section == kSecondaryAccountsSection) {
         return @"Secondary Accounts";
-    } else {
+    } else if (section == kAPIEndpoints) {
+        return @"API Endpoints";
+    } else if (section == kPasswordLockSection) {
         return @"Password Lock";
+    } else if (section == kChefIntegrationSection) {
+        return @"Chef Integration";
+    } else {
+        return @"";
     }
 }
 
@@ -142,8 +192,14 @@
         return @"This is the account that will appear on the login screen of this application.";
     } else if (section == kSecondaryAccountsSection) {
         return @"To log in with a secondary account, tap the Switch User button above the Services list.";
+    } else if (section == kAPIEndpoints) {
+        return @"This is the base URL for communicating with the OpenStack API.";
+    } else if (section == kPasswordLockSection) {
+        return @"If the password lock is turned on, you will be prompted to enter the password before you are allowed to view your Cloud Servers or Object Storage containers.";
+    } else if (section == kChefIntegrationSection) {
+        return @"With Chef integration enabled, you will be able to launch Cloud Servers into your Chef roles.  For more information, visit opscode.com/chef";
     } else {
-        return @"If the password lock is turned on, you will be prompted to enter the password before you are allowed to view your Cloud Servers or Cloud Files containers.";
+        return @"";
     }
 }
 
@@ -172,9 +228,10 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    self.tableView.backgroundView = nil;
+    //self.tableView.backgroundView = nil;
     
     static NSString *CellIdentifier = @"Cell";
+    static NSString *APICellIdentifier = @"APICell";
     
     UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -183,6 +240,15 @@
 		cell.textLabel.backgroundColor = [UIColor clearColor];
 		cell.detailTextLabel.backgroundColor = [UIColor clearColor];        
     }
+    
+    UITableViewCell *apiCell = [aTableView dequeueReusableCellWithIdentifier:APICellIdentifier];
+    if (apiCell == nil) {
+        apiCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        apiCell.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.25];
+		apiCell.textLabel.backgroundColor = [UIColor clearColor];
+		apiCell.detailTextLabel.backgroundColor = [UIColor clearColor];        
+    }
+    
     
     // Configure the cell...
     cell.textLabel.text = @"Hello world.";
@@ -203,7 +269,30 @@
     } else if (indexPath.section == kPasswordLockSection) {
         NSString *password = [defaults stringForKey:@"lock_password"];
         BOOL hasPassword = (password != nil) && ![password isEqualToString:@""];
-        return [self switchCell:aTableView label:@"Password Lock" action:@selector(passwordLockSwitchChanged) value:hasPassword];
+        UISwitchCell *switchCell = [self switchCell:aTableView label:@"Password Lock" action:@selector(passwordLockSwitchChanged) value:hasPassword];
+        passwordLockSwitch = switchCell.uiSwitch;
+        return switchCell;
+    } else if (indexPath.section == kAPIEndpoints) {
+        apiCell.textLabel.text = @"Object Storage";
+        apiCell.detailTextLabel.text = @"https://storage.api.rackspacecloud.com";
+        return apiCell;
+    } else if (indexPath.section == kChefIntegrationSection) {
+        if (indexPath.row == 0) {
+            UISwitchCell *switchCell = [self switchCell:aTableView label:@"Chef Integration" action:@selector(chefIntegrationSwitchChanged) value:NO];
+            chefIntegrationSwitch = switchCell.uiSwitch;
+            chefIntegrationSwitch.on = chefIntegrationEnabled;
+            return switchCell;
+        } else if (indexPath.row == 1) {
+            apiCell.textLabel.text = @"Chef Configuration";
+            apiCell.detailTextLabel.text = @"";
+            apiCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return apiCell;
+        } else if (indexPath.row == 2) {
+            apiCell.textLabel.text = @"Validation Key";
+            apiCell.detailTextLabel.text = [defaults objectForKey:@"chef_validation_key"];
+            apiCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return apiCell;
+        }
     }
     
     return cell;
@@ -255,16 +344,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
-    
-    if (indexPath.section != 2) {
-    
+    if (indexPath.section == kChefIntegrationSection) {
+        if (indexPath.row == 1) { // chef server url
+            ChefServerURLViewController *vc = [[ChefServerURLViewController alloc] initWithNibName:@"ChefServerURLViewController" bundle:nil];
+            vc.settingsViewController = self;
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentModalViewController:vc animated:YES];
+            [vc release];
+        } else if (indexPath.row == 2) { // validation key
+            ValidationKeyViewController *vc = [[ValidationKeyViewController alloc] initWithNibName:@"ValidationKeyViewController" bundle:nil];
+            vc.settingsViewController = self;
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentModalViewController:vc animated:YES];
+            [vc release];
+        }
+        
+    } else if (indexPath.section != 2) {
+        
         AccountViewController *vc = [[AccountViewController alloc] initWithNibName:@"AccountViewController" bundle:nil];
         vc.settingsViewController = self;
         vc.primaryAccount = (indexPath.section == 0);
@@ -305,6 +401,7 @@
 - (void)dealloc {
     [tableView release];
     [passwordLockSwitch release];
+    [chefIntegrationSwitch release];
     [super dealloc];
 }
 
